@@ -1,17 +1,16 @@
 import Wrapper from "@/app/styles/landing";
-import logo from "@/public/images/logo.svg";
+import { Logo } from "./components";
 import main from "@/public/images/main.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import Loading from "./loading";
-import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 export default function Page() {
   return (
     <Suspense fallback={<Loading />}>
       <Wrapper>
         <nav>
-          <Image src={logo} alt="logo"></Image>
+         <Logo/>
         </nav>
         <div className="container page">
           <div className="info">
