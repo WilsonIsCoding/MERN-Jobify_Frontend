@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import Wrapper from "../styles/RegisterAndLoginPage";
+import Wrapper from "../../styles/RegisterAndLoginPage";
 import { Logo, FormRow, SubmitBtn } from "@/app/components";
 // import customFetch from '../utils/customFetch';
 // import { toast } from 'react-toastify';
@@ -11,8 +11,8 @@ export default function Page() {
       <form method="post" className="form">
         <Logo />
         <h4>login</h4>
-        <FormRow type="email" name="email" />
-        <FormRow type="password" name="password" />
+        <FormRow type="email" name="email" defaultValue="wilson@gmail.com"/>
+        <FormRow type="password" name="password" defaultValue="123456" />
         <SubmitBtn />
         <button
           type="button"
