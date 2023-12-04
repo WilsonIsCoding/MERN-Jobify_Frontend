@@ -5,12 +5,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import Loading from "./loading";
+export const checkDefaultTheme = () => {
+  if (typeof window !== "undefined") {
+    const isDarkTheme = localStorage.getItem("darkTheme") === "true";
+    document.body.classList.toggle("dark-theme", isDarkTheme);
+    return isDarkTheme;
+  } else {
+    return true;
+  }
+};
+
+checkDefaultTheme();
 export default function Page() {
   return (
     <Suspense fallback={<Loading />}>
       <Wrapper>
         <nav>
-         <Logo/>
+          <Logo />
         </nav>
         <div className="container page">
           <div className="info">

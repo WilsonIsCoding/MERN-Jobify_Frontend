@@ -1,13 +1,12 @@
 import Wrapper from '../styles/BigSidebar';
-// import NavLinks from './NavLinks';
+import NavLinks from './NavLinks';
 import Logo from './Logo';
-// import { useDashboardContext } from '../pages/Dashboard';
+import { useDashboardContext } from '../(pages)/dashboard/layout';
 const BigSidebar = () => {
-  // const { showSidebar } = useDashboardContext();
-
+  const { showSidebar } = useDashboardContext();
   return (
     <Wrapper>
-      {/* <div
+      <div
         className={
           showSidebar ? 'sidebar-container ' : 'sidebar-container show-sidebar'
         }
@@ -18,8 +17,7 @@ const BigSidebar = () => {
           </header>
           <NavLinks isBigSidebar />
         </div>
-      </div> */}
-      BigSideBar
+      </div>
     </Wrapper>
   );
 };
