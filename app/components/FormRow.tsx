@@ -9,7 +9,7 @@ const FormRow = ({
   name: string;
   labelText?: string;
   defaultValue?: string;
-  onChange?: () => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
   return (
     <div className="form-row">
