@@ -5,6 +5,7 @@ import Link from "next/link";
 import customFetch from "@/app/utils/fetchUtils";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-toastify";
 const Register = () => {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
@@ -26,11 +27,13 @@ const Register = () => {
     try {
       setSubmitting(true);
       await customFetch.post("/auth/register", formData);
+      toast.success("註冊成功！");
       router.push("/login");
       setSubmitting(false);
     } catch (error: any) {
-      console.log(error);
-      alert(error?.response.data.message);
+      const { message } = error.response.data;
+      console.log(message);
+      toast.error(message);
       setSubmitting(false);
       return error;
     }

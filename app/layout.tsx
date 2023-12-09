@@ -1,16 +1,18 @@
-import './globals.css'
-import StyledComponentsRegistry from './lib/registry'
-
+import "./globals.css";
+import StyledComponentsRegistry from "./lib/registry";
+import ToastProvider from "./provider/toastProvider";
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html>
-    <body>
-      <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
-    </body>
-  </html>
-  )
+      <body>
+        <StyledComponentsRegistry>
+          <ToastProvider>{children} </ToastProvider>
+        </StyledComponentsRegistry>
+      </body>
+    </html>
+  );
 }
