@@ -3,7 +3,7 @@ import React from "react";
 import Wrapper from "@/app/styles/Dashboard";
 import { useState, createContext, useContext } from "react";
 import { SmallSidebar, BigSidebar, Navbar } from "@/app/components";
-import checkDefaultTheme from '@/app/page'
+import { checkDefaultTheme } from "@/app/page";
 type DashboardContextType = {
   user: { name: string };
   showSidebar: boolean;
@@ -20,7 +20,8 @@ const DashboardContext = createContext<DashboardContextType | undefined>(
 const user = { name: "Wilson" };
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [showSidebar, setShowSidebar] = useState(false);
-  const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme);
+  const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme());
+
   const toggleDarkTheme = () => {
     const newDarkTheme = !isDarkTheme;
     setIsDarkTheme(newDarkTheme);
