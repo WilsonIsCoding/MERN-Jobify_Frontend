@@ -6,6 +6,7 @@ import customFetch from "../../utils/fetchUtils";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { setCookie } from "@/app/serverHook/setCookie";
 export default function Page() {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
@@ -19,13 +20,18 @@ export default function Page() {
       [event.target.name]: event.target.value,
     });
   };
-  const loginHandler = async ({ e }: { e: any }) => {
-    e.preventDefault();
+
+  const loginHandler: React.MouseEventHandler<HTMLButtonElement> = async ({
+    event,
+  }: {
+    event: any;
+  }) => {
+    // event.preventDefault();
     try {
       setSubmitting(true);
-      await customFetch.post("/auth/login", formData);
-      toast.success("Login successful");
-      router.push("/dashboard");
+      console.log(formData);
+      const res = await customFetch.post("/auth/login", formData);
+      await setCookie("token", res.data.msg);
     } catch (error) {
       console.log(error);
       const { message } = error?.response?.data;
@@ -36,7 +42,7 @@ export default function Page() {
   };
   return (
     <Wrapper>
-      <form onSubmit={loginHandler} className="form">
+      <form method="post" className="form">
         <Logo />
         <h4>login</h4>
         <FormRow
@@ -52,11 +58,7 @@ export default function Page() {
           onChange={handleChange}
         />
         <SubmitBtn isSubmitting={submitting} />
-        <button
-          type="button"
-          className="btn btn-block"
-          // onClick={() => console.log("")}
-        >
+        <button type="button" onClick={loginHandler} className="btn btn-block">
           explore the app
         </button>
         <p>

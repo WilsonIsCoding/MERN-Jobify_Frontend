@@ -1,9 +1,10 @@
-"use client";
+'use client'
 import React from "react";
 import Wrapper from "@/app/styles/Dashboard";
 import { useState, createContext, useContext } from "react";
 import { SmallSidebar, BigSidebar, Navbar } from "@/app/components";
 import { checkDefaultTheme } from "@/app/page";
+import customFetch from "@/app/utils/fetchUtils";
 type DashboardContextType = {
   user: { name: string };
   showSidebar: boolean;
@@ -16,12 +17,24 @@ type DashboardContextType = {
 const DashboardContext = createContext<DashboardContextType | undefined>(
   undefined
 );
-
+export const loader = async () => {
+  try {
+    const response = await customFetch.get("/users/admin/app-stats");
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    // toast.error('You are not authorized to view this page');
+    console.log(error);
+  }
+};
 const user = { name: "Wilson" };
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [showSidebar, setShowSidebar] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme());
-
   const toggleDarkTheme = () => {
     const newDarkTheme = !isDarkTheme;
     setIsDarkTheme(newDarkTheme);
