@@ -18,25 +18,24 @@ export default function Page() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Form data:", formData);
-    const res = await customFetch.post("/jobs", formData);
-    console.log(res);
-    // try {
-    //   await customFetch.post("/jobs", formData);
-    //   toast.success("Job added successfully ");
-    //   router.push("/all-jobs");
-    //   return;
-    // } catch (error) {
-    //   toast.error(error?.response?.data?.msg);
-    //   return error;
-    // } finally {
-    //   setFormData({
-    //     position: "",
-    //     company: "",
-    //     jobLocation: "",
-    //     jobStatus: JOB_STATUS.PENDING,
-    //     jobType: JOB_TYPE.FULL_TIME,
-    //   });
-    // }
+    try {
+      await customFetch.post("/jobs", formData);
+      toast.success("Job added successfully");
+      router.push("/dashboard/all-jobs");
+      return;
+    } catch (error) {
+      console.log(error)
+      toast.error(error?.response?.data?.message);
+      return error;
+    } finally {
+      setFormData({
+        position: "",
+        company: "",
+        jobLocation: "",
+        jobStatus: JOB_STATUS.PENDING,
+        jobType: JOB_TYPE.FULL_TIME,
+      });
+    }
   };
 
   const handleChange = (event) => {
