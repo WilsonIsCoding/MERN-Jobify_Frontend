@@ -4,20 +4,22 @@ import Wrapper from "@/app/styles/DashboardFormPage";
 import { FormRow, FormRowSelect, SubmitBtn } from "@/app/components";
 import { JOB_STATUS, JOB_TYPE } from "@/app/utils/constants";
 import customFetch from "@/app/utils/fetchUtils";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-export default async function Page() {
+export default function Page() {
   const router = useRouter();
   const [formData, setFormData] = useState({
     position: "",
     company: "",
     jobLocation: "",
-    jobStatus: JOB_STATUS.PENDING,
-    jobType: JOB_TYPE.FULL_TIME,
+    jobStatus: "",
+    jobType: "",
   });
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Form data:", formData);
+    const res = await customFetch.post("/jobs", formData);
+    console.log(res);
     // try {
     //   await customFetch.post("/jobs", formData);
     //   toast.success("Job added successfully ");

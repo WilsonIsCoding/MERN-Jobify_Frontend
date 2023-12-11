@@ -23,7 +23,6 @@ const DashboardContext = createContext<DashboardContextType | undefined>(
 const useLoader = async () => {
   try {
     const response = await customFetch.get("/users/current-user");
-    console.log(response.data.msg);
     return response.data.msg;
   } catch (error) {
     toast.error("You are not authorized to view this page");
