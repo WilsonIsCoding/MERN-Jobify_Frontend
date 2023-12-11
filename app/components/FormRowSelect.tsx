@@ -1,12 +1,12 @@
 import React from "react";
 
-interface FormRowSelectProps {
+type FormRowSelectProps = {
   name: string;
-  labelText: string;
-  list: any[]; 
+  labelText?: string;
+  list: string[];
   defaultValue?: string;
-  onChange: () => void;
-}
+  onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+};
 
 const FormRowSelect: React.FC<FormRowSelectProps> = ({
   name,
