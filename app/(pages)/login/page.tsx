@@ -29,9 +29,9 @@ export default function Page() {
     // event.preventDefault();
     try {
       setSubmitting(true);
-      console.log(formData);
       const res = await customFetch.post("/auth/login", formData);
-      await setCookie("token", res.data.msg);
+      await setCookie("token", res.data.token);
+      router.push("/dashboard");
     } catch (error) {
       console.log(error);
       const { message } = error?.response?.data;
