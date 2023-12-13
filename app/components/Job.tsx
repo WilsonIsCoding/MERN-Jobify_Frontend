@@ -1,9 +1,13 @@
 import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from "react-icons/fa";
-import Link from "next/link"; 
+import Link from "next/link";
 import Wrapper from "../styles/Job";
 import JobInfo from "./JobInfo";
 import day from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
+import customFetch from "../utils/fetchUtils";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import { useAllJobsContext } from "../(pages)/dashboard/all-jobs/page";
 day.extend(advancedFormat);
 
 const Job = ({
@@ -17,6 +21,7 @@ const Job = ({
 }) => {
   const date = day(createdAt).format("MMM Do, YYYY");
 
+  const { deleteJob } = useAllJobsContext();
   return (
     <Wrapper>
       <header>
@@ -35,12 +40,17 @@ const Job = ({
         </div>
 
         <footer className="actions">
-            <Link  href={`dashboard/edit-job?${_id}`} className="btn edit-btn">Edit</Link>
-          <form>
-            <button type="submit" className="btn delete-btn">
-              Delete
-            </button>
-          </form>
+          <Link href={`/dashboard/edit-job/${_id}`} className="btn edit-btn">
+            Edit
+          </Link>
+
+          <button
+            type="button"
+            onClick={() => deleteJob(_id)}
+            className="btn delete-btn"
+          >
+            Delete
+          </button>
         </footer>
       </div>
     </Wrapper>

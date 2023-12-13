@@ -8,11 +8,11 @@ const JobsContainer = () => {
   } else {
     return (
       <Wrapper>
-        <div className="jobs">
-          {jobs.map((job:object) => {
-            return <Job key={job._id} {...job} />;
-          })}
-        </div>
+      <div className="jobs">
+        {jobs.map((job:object) => {
+          return <Job key={job._id} {...job} />;
+        })}
+      </div>
       </Wrapper>
     );
   }
