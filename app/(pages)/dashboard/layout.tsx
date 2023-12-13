@@ -90,6 +90,5 @@ const Layout: React.FC = ({ children }) => {
   );
 };
 
-export default LayoutContent;
-
+export default Layout;
 export const useDashboardContext = () => useContext(DashboardContext);
