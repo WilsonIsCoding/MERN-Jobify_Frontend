@@ -12,7 +12,7 @@ export default function Profile() {
     lastName: "",
     email: "",
     location: "",
-    avatar: null, // Use null for the avatar to represent the file
+    avatar: null,
   });
 
   const handleSubmit = async (event) => {
@@ -22,7 +22,12 @@ export default function Profile() {
     Object.entries(formData).forEach(([key, value]) => {
       formDataToSend.append(key, value);
     });
-    console.log(formDataToSend.get('avatar'));
+
+    const file = formDataToSend.get("avatar");
+    if (file && file?.size > 500000) {
+      toast.error("Image size too large");
+      return null;
+    }
     try {
       await customFetch.patch("/users/update-user", formDataToSend);
       toast.success("Profile Updated successfully");
