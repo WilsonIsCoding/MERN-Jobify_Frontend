@@ -94,8 +94,8 @@ export default function Profile() {
             defaultValue={location}
             onChange={handleChange}
           />
-          <button type="button" onClick={handleSubmit}>
-            click
+          <button type="button" onClick={handleSubmit} className={"btn btn-block form-btn "}>
+            Submit
           </button>
         </div>
       </form>

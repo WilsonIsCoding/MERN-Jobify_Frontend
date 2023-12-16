@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { FaUserCircle, FaCaretDown } from "react-icons/fa";
 import Wrapper from "../styles/LogoutContainer";
 import { useState } from "react";
@@ -16,11 +16,18 @@ const LogoutContainer = () => {
         className="btn logout-btn"
         onClick={() => setShowLogout(!showLogout)}
       >
-        {user.avatar ? (
-          <Image src={user.avatar} alt="avatar" className="img" />
+        {user.avatar !== "null" && user.avatar ? (
+          <Image
+            src={user.avatar}
+            alt="avatar"
+            width={25}
+            height={25}
+            className="img"
+          />
         ) : (
           <FaUserCircle />
         )}
+        {user?.avatar}
         {user?.name}
         <FaCaretDown />
       </button>

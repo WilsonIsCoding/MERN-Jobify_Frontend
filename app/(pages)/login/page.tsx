@@ -20,13 +20,25 @@ export default function Page() {
       [event.target.name]: event.target.value,
     });
   };
-
+  const exploreLogin = async () => {
+    const data = {
+      email: "test@gmail.com",
+      password: "secret123",
+    };
+    try {
+      const res = await customFetch.post("/auth/login", data);
+      router.push("/dashboard");
+    } catch (error) {
+      console.log(error);
+      const { message } = error?.response?.data;
+      toast.error(message);
+    }
+  };
   const loginHandler: React.MouseEventHandler<HTMLButtonElement> = async ({
     event,
   }: {
     event: any;
   }) => {
-    // event.preventDefault();
     try {
       setSubmitting(true);
       const res = await customFetch.post("/auth/login", formData);
@@ -57,8 +69,11 @@ export default function Page() {
           defaultValue="123456"
           onChange={handleChange}
         />
-        <SubmitBtn isSubmitting={submitting} />
+
         <button type="button" onClick={loginHandler} className="btn btn-block">
+          Submit
+        </button>
+        <button type="button" onClick={exploreLogin} className="btn btn-block">
           explore the app
         </button>
         <p>
