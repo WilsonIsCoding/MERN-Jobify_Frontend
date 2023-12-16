@@ -24,7 +24,7 @@ const links = [
   },
   {
     text: 'profile',
-    path: 'profile',
+    path: 'dashboard/profile',
     icon: <ImProfile />,
   },
   {

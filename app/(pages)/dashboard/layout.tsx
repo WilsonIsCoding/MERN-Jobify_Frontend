@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { BigSidebar, Navbar, SmallSidebar } from "@/app/components";
 
 type DashboardContextType = {
-  user: { name: string };
+  user: { name: string; lastName: string; email: string; location: string };
   showSidebar: boolean;
   isDarkTheme: boolean;
   toggleDarkTheme: () => void;
@@ -75,7 +75,7 @@ const Layout: React.FC = ({ children }) => {
           logoutUser,
         }}
       >
-           <Wrapper>
+        <Wrapper>
           <main className="dashboard">
             <SmallSidebar />
             <BigSidebar />
