@@ -17,7 +17,6 @@ export default function Page() {
   });
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Form data:", formData);
     try {
       await customFetch.post("/jobs", formData);
       toast.success("Job added successfully");
