@@ -19,7 +19,7 @@ const links = [
   },
   {
     text: 'stats',
-    path: 'stats',
+    path: 'dashboard/stats',
     icon: <IoBarChartSharp />,
   },
   {
