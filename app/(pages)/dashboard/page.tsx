@@ -73,7 +73,6 @@ export default function Page() {
             name="jobStatus"
             defaultValue={JOB_STATUS.PENDING}
             list={Object.values(JOB_STATUS)}
-            defaultValue={formData.jobStatus}
             onChange={handleChange}
           />
           <FormRowSelect
@@ -81,7 +80,6 @@ export default function Page() {
             name="jobType"
             defaultValue={JOB_TYPE.FULL_TIME}
             list={Object.values(JOB_TYPE)}
-            defaultValue={formData.jobType}
             onChange={handleChange}
           />
           <SubmitBtn formBtn />

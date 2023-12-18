@@ -60,13 +60,11 @@ export default function Page() {
         <FormRow
           type="email"
           name="email"
-          defaultValue="wilson@gmail.com"
           onChange={handleChange}
         />
         <FormRow
           type="password"
           name="password"
-          defaultValue="123456"
           onChange={handleChange}
         />
 

@@ -1,21 +1,17 @@
 "use client";
 import customFetch from "@/app/utils/fetchUtils";
-import { createContext, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import SearchContainer from "@/app/components/SearchContainer";
 import JobsContainer from "@/app/components/JobsContainer";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
-
+import AllJobsContext from "@/app/context/AllJobsContext";
 interface SearchParamsHandlerResult {
   data: object;
   searchValues: object;
 }
-type AllJobsContextType = {
-  jobs: Array<object>;
-  deleteJob: (id: string) => Promise<void>;
-  searchParamsHandler: (params: object) => Promise<SearchParamsHandlerResult>;
-};
+
 const Loader = async () => {
   try {
     const response = await customFetch.get("/jobs");
@@ -26,7 +22,7 @@ const Loader = async () => {
   }
 };
 
-const AllJobsContext = createContext<AllJobsContextType | undefined>(undefined);
+export const useAllJobsContext = () => useContext(AllJobsContext);
 export default function Page() {
   const router = useRouter();
   const [jobs, setJobs] = useState([]);
@@ -94,5 +90,3 @@ export default function Page() {
     </AllJobsContext.Provider>
   );
 }
-
-export const useAllJobsContext = () => useContext(AllJobsContext);

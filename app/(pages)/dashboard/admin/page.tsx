@@ -5,14 +5,16 @@ import Wrapper from "@/app/styles/StatsContainer";
 import { toast } from "react-toastify";
 import StatItem from "@/app/components/StatItem";
 import { useEffect, useState } from "react";
-export const fetchUserData = async () => {
+const fetchUserData = async () => {
   try {
     const response = await customFetch.get("/users/admin/app-stats");
     return response.data;
   } catch (error) {
     toast.error("You are not authorized to view this page");
+    throw error;
   }
 };
+
 export default function Admin() {
   const [adminData, setAdminData] = useState({ users: 0, job: 0 });
   useEffect(() => {
