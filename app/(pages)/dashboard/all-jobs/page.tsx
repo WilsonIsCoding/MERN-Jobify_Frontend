@@ -60,14 +60,8 @@ export default function Page() {
     return;
   };
 
-  const searchParamsHandler = async () => {
+  const searchParamsHandler = async (params) => {
     try {
-      let params: any = {};
-      params.search = searchParams.get("search");
-      params.jobStatus = searchParams.get("jobStatus");
-      params.jobType = searchParams.get("jobType");
-      params.sort = searchParams.get("sort");
-      console.log(params);
       const { data } = await customFetch.get("/jobs", {
         params,
       });
