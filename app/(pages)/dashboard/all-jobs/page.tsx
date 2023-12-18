@@ -4,14 +4,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import SearchContainer from "@/app/components/SearchContainer";
 import JobsContainer from "@/app/components/JobsContainer";
-const Loader = async () => {
-  try {
-    const response = await customFetch.get("/jobs");
-    return response.data.jobs;
-  } catch (error) {
-    console.log(error);
-  }
-};
+import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 interface SearchParamsHandlerResult {
   data: object;
@@ -22,14 +16,32 @@ type AllJobsContextType = {
   deleteJob: (id: string) => Promise<void>;
   searchParamsHandler: (params: object) => Promise<SearchParamsHandlerResult>;
 };
+const Loader = async () => {
+  try {
+    const response = await customFetch.get("/jobs");
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const AllJobsContext = createContext<AllJobsContextType | undefined>(undefined);
 export default function Page() {
+  const router = useRouter();
   const [jobs, setJobs] = useState([]);
+  const [totalJobs, setTotalJobs] = useState(0);
+  const [numOfPages, setNumOfPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  const searchParams = useSearchParams();
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const jobsData = await Loader();
-        setJobs(jobsData);
+        const { jobs, totalJobs, totalPage, currentPage } = await Loader();
+        setJobs(jobs);
+        setTotalJobs(totalJobs);
+        setNumOfPages(totalPage);
+        setCurrentPage(currentPage);
       } catch (error) {
         console.log(error);
       }
@@ -48,13 +60,21 @@ export default function Page() {
     return;
   };
 
-  const searchParamsHandler = async (params: object) => {
+  const searchParamsHandler = async () => {
     try {
+      let params: any = {};
+      params.search = searchParams.get("search");
+      params.jobStatus = searchParams.get("jobStatus");
+      params.jobType = searchParams.get("jobType");
+      params.sort = searchParams.get("sort");
+      console.log(params);
       const { data } = await customFetch.get("/jobs", {
         params,
       });
-      console.log(data);
       setJobs(data.jobs);
+      setTotalJobs(data.totalJobs);
+      setNumOfPages(data.totalPage);
+      setCurrentPage(data.currentPage);
       return {
         data,
         searchValues: { ...params },
@@ -65,7 +85,16 @@ export default function Page() {
     }
   };
   return (
-    <AllJobsContext.Provider value={{ jobs, deleteJob, searchParamsHandler }}>
+    <AllJobsContext.Provider
+      value={{
+        jobs,
+        totalJobs,
+        numOfPages,
+        currentPage,
+        deleteJob,
+        searchParamsHandler,
+      }}
+    >
       <SearchContainer />
       <JobsContainer />
     </AllJobsContext.Provider>
