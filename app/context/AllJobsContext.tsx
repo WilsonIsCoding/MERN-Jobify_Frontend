@@ -9,6 +9,18 @@ interface SearchParamsHandlerResult {
   data: object;
   searchValues: object;
 }
+interface Job {
+  company: string;
+  createdAt: string;
+  createdBy: string;
+  jobLocation: string;
+  jobStatus: string;
+  jobType: string;
+  position: string;
+  updatedAt: string;
+  __v: number;
+  _id: string;
+}
 
 type AllJobsContextType = {
   jobs: Array<object>;
@@ -28,14 +40,16 @@ const Loader = async () => {
     console.log(error);
   }
 };
-
-const AllJobsContextProvider: React.FC = ({ children }) => {
-  const router = useRouter();
-  const [jobs, setJobs] = useState([]);
+interface AllJobsContextProviderProps {
+  children: React.ReactNode;
+}
+const AllJobsContextProvider: React.FC<AllJobsContextProviderProps> = ({
+  children,
+}) => {
+  const [jobs, setJobs] = useState<Job[]>([]);
   const [totalJobs, setTotalJobs] = useState(0);
   const [numOfPages, setNumOfPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,12 +72,14 @@ const AllJobsContextProvider: React.FC = ({ children }) => {
       toast.success("Job deleted successfully");
       setJobs((jobs) => jobs.filter((job) => job._id !== id));
     } catch (error) {
-      toast.error(error?.response?.data?.msg);
+      toast.error((error as any)?.response?.data?.msg);
     }
     return;
   };
 
-  const searchParamsHandler = async (params: object) => {
+  const searchParamsHandler = async (
+    params: object
+  ): Promise<SearchParamsHandlerResult> => {
     try {
       const { data } = await customFetch.get("/jobs", {
         params,
@@ -77,12 +93,11 @@ const AllJobsContextProvider: React.FC = ({ children }) => {
         searchValues: { ...params },
       };
     } catch (error) {
-      toast.error(error.response.data.msg);
-      return error;
+      toast.error((error as any).response.data.msg);
+      throw { data: {}, searchValues: {} };
     }
   };
-  
-  console.log(AllJobsContext);
+
   return (
     <AllJobsContext.Provider
       value={{

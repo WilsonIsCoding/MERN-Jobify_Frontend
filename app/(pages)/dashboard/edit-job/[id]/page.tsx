@@ -6,19 +6,24 @@ import { JOB_STATUS, JOB_TYPE } from "@/app/utils/constants";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-const getJob = async ({ id }) => {
+const getJob = async ({ id }: { id: string }) => {
   try {
     const formData = await customFetch.get(`/jobs/${id}`);
     const { job } = formData.data;
     return job;
   } catch (error) {
     console.error("Error fetching data:", error);
-    throw error; // Rethrow the error to handle it in the calling component
+    throw error;
   }
 };
-
 export default function Page({ params }: { params: { id: string } }) {
-  const [job, setJob] = useState([]);
+  const [job, setJob] = useState({
+    company: "",
+    jobLocation: "",
+    position: "",
+    jobStatus: "",
+    jobType: "",
+  });
   const [loading, setLoading] = useState(true);
   const { id } = params;
   const router = useRouter();
@@ -53,12 +58,10 @@ export default function Page({ params }: { params: { id: string } }) {
   const editHandler = async () => {
     try {
       const res = await customFetch.patch(`/jobs/${params.id}`, jobFormData);
-      console.log(res);
       toast.success("Job edited successfully");
       router.push("/dashboard/all-jobs");
     } catch (error) {
-      console.log(error);
-      toast.error(error.response.data.message);
+      toast.error((error as any).response.data.message);
       return error;
     }
   };

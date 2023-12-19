@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Wrapper from "../../styles/RegisterAndLoginPage";
-import { Logo, FormRow, SubmitBtn } from "@/app/components";
+import { Logo, FormRow } from "@/app/components";
 import customFetch from "../../utils/fetchUtils";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
@@ -29,16 +29,13 @@ export default function Page() {
       const res = await customFetch.post("/auth/login", data);
       router.push("/dashboard");
     } catch (error) {
-      console.log(error);
-      const { message } = error?.response?.data;
+      const { message } = (error as any)?.response?.data;
       toast.error(message);
     }
   };
-  const loginHandler: React.MouseEventHandler<HTMLButtonElement> = async ({
-    event,
-  }: {
-    event: any;
-  }) => {
+  const loginHandler: React.MouseEventHandler<HTMLButtonElement> = async (
+    event
+  ) => {
     try {
       setSubmitting(true);
       const res = await customFetch.post("/auth/login", formData);
@@ -46,7 +43,7 @@ export default function Page() {
       router.push("/dashboard");
     } catch (error) {
       console.log(error);
-      const { message } = error?.response?.data;
+      const { message } = (error as any)?.response?.data;
       toast.error(message);
     } finally {
       setSubmitting(false);
@@ -57,16 +54,8 @@ export default function Page() {
       <form method="post" className="form">
         <Logo />
         <h4>login</h4>
-        <FormRow
-          type="email"
-          name="email"
-          onChange={handleChange}
-        />
-        <FormRow
-          type="password"
-          name="password"
-          onChange={handleChange}
-        />
+        <FormRow type="email" name="email" onChange={handleChange} />
+        <FormRow type="password" name="password" onChange={handleChange} />
 
         <button type="button" onClick={loginHandler} className="btn btn-block">
           Submit

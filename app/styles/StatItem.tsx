@@ -1,7 +1,7 @@
 "use client";
-import styled from 'styled-components';
+import styled from "styled-components";
 
-const Wrapper = styled.article`
+const Wrapper = styled.article<{ color: string; background: string }>`
   padding: 2rem;
   background: var(--background-secondary-color);
   border-bottom: 5px solid ${(props) => props.color};
@@ -30,7 +30,7 @@ const Wrapper = styled.article`
   .icon {
     width: 70px;
     height: 60px;
-    background: ${(props) => props.bcg};
+    background: ${(props) => props.background || "initial"};
     border-radius: var(--border-radius);
     display: flex;
     align-items: center;

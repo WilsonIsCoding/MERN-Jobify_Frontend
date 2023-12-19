@@ -18,10 +18,18 @@ const Job = ({
   jobType,
   createdAt,
   jobStatus,
+}: {
+  _id: string;
+  position: string;
+  company: string;
+  jobLocation: string;
+  jobType: string;
+  createdAt: string;
+  jobStatus: string;
 }) => {
   const date = day(createdAt).format("MMM Do, YYYY");
 
-  const { deleteJob } = useAllJobsContext();
+  const { deleteJob }: any = useAllJobsContext();
   return (
     <Wrapper>
       <header>

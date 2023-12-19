@@ -3,16 +3,21 @@ import { useEffect, useState } from "react";
 import { ChartsContainer, StatsContainer } from "@/app/components";
 import customFetch from "@/app/utils/fetchUtils";
 import { toast } from "react-toastify";
-export const fetchStatsData = async () => {
+const fetchStatsData = async () => {
   try {
     const response = await customFetch.get("/jobs/stats");
     return response.data;
   } catch (error) {
     toast.error("You are not authorized to view this page");
+    throw error;
   }
 };
+
 export default function Page() {
-  const [statsData, setStatsData] = useState({});
+  const [statsData, setStatsData] = useState({
+    defaultStats: null,
+    monthlyApplications: [],
+  });
   useEffect(() => {
     const fetchData = async () => {
       try {

@@ -2,11 +2,11 @@ import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi";
 import Wrapper from "../styles/PageBtnContainer";
 import { useAllJobsContext } from "@/app/context/AllJobsContext";
 export default function PageBtnContainer() {
-  const { numOfPages, currentPage } = useAllJobsContext();
+  const { numOfPages, currentPage }: any = useAllJobsContext();
   const pages = Array.from({ length: numOfPages }, (_, index) => {
     return index + 1;
   });
-  const handlePageChange = (page) => {
+  const handlePageChange = ({ page }: { page: number }) => {
     console.log(page);
   };
   const renderPageButtons = () => {
@@ -16,7 +16,7 @@ export default function PageBtnContainer() {
           <button
             className={`btn page-btn ${pageNumber === currentPage && "active"}`}
             key={pageNumber}
-            onClick={() => handlePageChange(pageNumber)}
+            onClick={() => handlePageChange({ page: pageNumber })}
           >
             {pageNumber}
           </button>
@@ -33,7 +33,7 @@ export default function PageBtnContainer() {
           onClick={() => {
             let prevPage = currentPage - 1;
             if (prevPage < 1) prevPage = numOfPages;
-            handlePageChange(prevPage);
+            handlePageChange({ page: prevPage });
           }}
         >
           <HiChevronDoubleLeft />

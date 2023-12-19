@@ -1,8 +1,20 @@
 import Wrapper from "@/app/styles/StatItem";
 
-const StatItem = ({ count, title, icon, color, bcg }) => {
+const StatItem = ({
+  count,
+  title,
+  icon,
+  color,
+  background,
+}: {
+  count: number;
+  title: string;
+  icon: React.ReactNode;
+  color: string;
+  background: string;
+}) => {
   return (
-    <Wrapper color={color} bcg={bcg}>
+    <Wrapper color={color} background={background}>
       <header>
         <span className="count">{count}</span>
         <span className="icon">{icon}</span>
@@ -11,4 +23,5 @@ const StatItem = ({ count, title, icon, color, bcg }) => {
     </Wrapper>
   );
 };
+
 export default StatItem;

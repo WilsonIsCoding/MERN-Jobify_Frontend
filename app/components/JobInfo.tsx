@@ -1,7 +1,7 @@
 import Wrapper from "../styles/JobInfo";
 import React from "react";
 interface JobInfoProps {
-  icon: string;
+  icon: React.ReactNode; 
   text: string;
 }
 const JobInfo: React.FC<JobInfoProps> = ({ icon, text }) => {

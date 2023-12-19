@@ -34,14 +34,14 @@ export default function Admin() {
         title="current users"
         count={adminData?.users}
         color="#e9b949"
-        bcg="#fcefc7"
+        background="#fcefc7"
         icon={<FaSuitcaseRolling />}
       />
       <StatItem
         title="total jobs"
         count={adminData?.job}
         color="#647acb"
-        bcg="#e0e8f9"
+        background="#e0e8f9"
         icon={<FaCalendarCheck />}
       />
     </Wrapper>

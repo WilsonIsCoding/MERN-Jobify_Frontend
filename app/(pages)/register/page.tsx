@@ -32,7 +32,6 @@ const Register = () => {
       setSubmitting(false);
     } catch (error: any) {
       const { message } = error.response.data;
-      console.log(message);
       toast.error(message);
       setSubmitting(false);
       return error;

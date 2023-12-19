@@ -3,7 +3,7 @@ import { FormRow, SubmitBtn } from "@/app/components";
 import Wrapper from "@/app/styles/DashboardFormPage";
 import customFetch from "@/app/utils/fetchUtils";
 import { toast } from "react-toastify";
-import { useDashboardContext } from "../layout";
+import { useDashboardContext } from "@/app/context/DashboardContext";
 import { useState } from "react";
 
 export default function Profile() {
@@ -15,16 +15,18 @@ export default function Profile() {
     avatar: null,
   });
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
 
     const formDataToSend = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
-      formDataToSend.append(key, value);
+      if (value !== null) {
+        formDataToSend.append(key, value);
+      }
     });
 
     const file = formDataToSend.get("avatar");
-    if (file && file?.size > 500000) {
+    if (file instanceof File && file?.size > 500000) {
       toast.error("Image size too large");
       return null;
     }
@@ -33,11 +35,11 @@ export default function Profile() {
       toast.success("Profile Updated successfully");
     } catch (error) {
       console.error(error);
-      toast.error(error?.response?.data?.message);
+      toast.error((error as any)?.response?.data?.message);
     }
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     const { name, value, files } = event.target;
 
     // Check if the target element is a file input
@@ -47,8 +49,7 @@ export default function Profile() {
       [name]: newValue,
     }));
   };
-
-  const { user } = useDashboardContext();
+  const { user }: any = useDashboardContext();
   const { name, lastName, email, location } = user;
 
   return (
@@ -94,7 +95,11 @@ export default function Profile() {
             defaultValue={location}
             onChange={handleChange}
           />
-          <button type="button" onClick={handleSubmit} className={"btn btn-block form-btn "}>
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className={"btn btn-block form-btn "}
+          >
             Submit
           </button>
         </div>

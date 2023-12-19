@@ -10,24 +10,13 @@ const jobStatusDefault = "all";
 const jobTypeDefault = "all";
 const sortDefault = "newest";
 const SearchContainer = () => {
-  const { searchParamsHandler } = useAllJobsContext();
+  const { searchParamsHandler }: any = useAllJobsContext();
   const [searchQuery, setSearchQuery] = useState({
     search: searchDefault,
     jobStatus: jobStatusDefault,
     jobType: jobTypeDefault,
     sort: sortDefault,
   });
-  //延遲輸入
-  // const debounce = (onChange) => {
-  //   let timeout;
-  //   return (e) => {
-  //     const form = e.currentTarget.form;
-  //     clearTimeout(timeout);
-  //     timeout = setTimeout(() => {
-  //       onChange(form);
-  //     }, 2000);
-  //   };
-  // };
   const handleChange = (event: any) => {
     setSearchQuery({
       ...searchQuery,

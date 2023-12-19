@@ -1,10 +1,10 @@
 "use client";
-import { useDashboardContext } from "../(pages)/dashboard/layout";
+import { useDashboardContext } from "@/app/context/DashboardContext";
 import links from "../utils/links";
 import Link from "next/link";
 
 const NavLinks = ({ isBigSidebar }: { isBigSidebar: boolean }) => {
-  const { toggleSidebar, user } = useDashboardContext();
+  const { toggleSidebar, user }: any = useDashboardContext();
   return (
     <div className="nav-links">
       {links.map((link) => {

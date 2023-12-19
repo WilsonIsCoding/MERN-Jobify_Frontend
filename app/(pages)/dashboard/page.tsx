@@ -15,7 +15,7 @@ export default function Page() {
     jobStatus: "",
     jobType: "",
   });
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
     try {
       await customFetch.post("/jobs", formData);
@@ -23,8 +23,8 @@ export default function Page() {
       router.push("/dashboard/all-jobs");
       return;
     } catch (error) {
-      console.log(error)
-      toast.error(error?.response?.data?.message);
+      console.log(error);
+      toast.error((error as any)?.response?.data?.message);
       return error;
     } finally {
       setFormData({
@@ -37,7 +37,7 @@ export default function Page() {
     }
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -46,7 +46,7 @@ export default function Page() {
   };
   return (
     <Wrapper>
-      <form method="post" className="form" onSubmit={handleSubmit}>
+      <form method="post" className="form">
         <h4 className="form-title">add job</h4>
         <div className="form-center">
           <FormRow
@@ -82,7 +82,13 @@ export default function Page() {
             list={Object.values(JOB_TYPE)}
             onChange={handleChange}
           />
-          <SubmitBtn formBtn />
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className="btn btn-block form-btn"
+          >
+            submit
+          </button>
         </div>
       </form>
     </Wrapper>
