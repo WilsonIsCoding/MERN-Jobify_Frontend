@@ -1,6 +1,6 @@
 import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi";
 import Wrapper from "../styles/PageBtnContainer";
-import { useAllJobsContext } from "../(pages)/dashboard/all-jobs/page";
+import { useAllJobsContext } from "@/app/context/AllJobsContext";
 export default function PageBtnContainer() {
   const { numOfPages, currentPage } = useAllJobsContext();
   const pages = Array.from({ length: numOfPages }, (_, index) => {

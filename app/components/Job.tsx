@@ -7,7 +7,7 @@ import advancedFormat from "dayjs/plugin/advancedFormat";
 import customFetch from "../utils/fetchUtils";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { useAllJobsContext } from "../(pages)/dashboard/all-jobs/page";
+import { useAllJobsContext } from "@/app/context/AllJobsContext";
 day.extend(advancedFormat);
 
 const Job = ({

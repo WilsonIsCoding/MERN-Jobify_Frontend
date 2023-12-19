@@ -1,92 +1,12 @@
-"use client";
-import customFetch from "@/app/utils/fetchUtils";
-import { useContext, useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import SearchContainer from "@/app/components/SearchContainer";
-import JobsContainer from "@/app/components/JobsContainer";
-import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
-import AllJobsContext from "@/app/context/AllJobsContext";
-interface SearchParamsHandlerResult {
-  data: object;
-  searchValues: object;
-}
+'use client'
+import { SearchContainer, JobsContainer } from "@/app/components";
+import AllJobsContextProvider from "@/app/context/AllJobsContext";
 
-const Loader = async () => {
-  try {
-    const response = await customFetch.get("/jobs");
-    console.log(response);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const useAllJobsContext = () => useContext(AllJobsContext);
 export default function Page() {
-  const router = useRouter();
-  const [jobs, setJobs] = useState([]);
-  const [totalJobs, setTotalJobs] = useState(0);
-  const [numOfPages, setNumOfPages] = useState(0);
-  const [currentPage, setCurrentPage] = useState(0);
-  const searchParams = useSearchParams();
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { jobs, totalJobs, totalPage, currentPage } = await Loader();
-        setJobs(jobs);
-        setTotalJobs(totalJobs);
-        setNumOfPages(totalPage);
-        setCurrentPage(currentPage);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
-
-  const deleteJob = async (id: string) => {
-    try {
-      await customFetch.delete(`/jobs/${id}`);
-      toast.success("Job deleted successfully");
-      setJobs((jobs) => jobs.filter((job) => job._id !== id));
-    } catch (error) {
-      toast.error(error?.response?.data?.msg);
-    }
-    return;
-  };
-
-  const searchParamsHandler = async (params) => {
-    try {
-      const { data } = await customFetch.get("/jobs", {
-        params,
-      });
-      setJobs(data.jobs);
-      setTotalJobs(data.totalJobs);
-      setNumOfPages(data.totalPage);
-      setCurrentPage(data.currentPage);
-      return {
-        data,
-        searchValues: { ...params },
-      };
-    } catch (error) {
-      toast.error(error.response.data.msg);
-      return error;
-    }
-  };
   return (
-    <AllJobsContext.Provider
-      value={{
-        jobs,
-        totalJobs,
-        numOfPages,
-        currentPage,
-        deleteJob,
-        searchParamsHandler,
-      }}
-    >
+    <AllJobsContextProvider>
       <SearchContainer />
       <JobsContainer />
-    </AllJobsContext.Provider>
+    </AllJobsContextProvider>
   );
 }

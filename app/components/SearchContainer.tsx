@@ -4,7 +4,7 @@ import Wrapper from "../styles/DashboardFormPage";
 import { JOB_TYPE, JOB_STATUS, JOB_SORT_BY } from "../../../utils/constants";
 import Link from "next/link";
 import { useState } from "react";
-import { useAllJobsContext } from "../(pages)/dashboard/all-jobs/page";
+import { useAllJobsContext } from "@/app/context/AllJobsContext";
 const searchDefault = "a";
 const jobStatusDefault = "all";
 const jobTypeDefault = "all";
