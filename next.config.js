@@ -3,14 +3,14 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  async rewrites() {
-    return [
-      {
-        source: "/api/:path*",
-        destination: "http://localhost:5100/api/:path*",
-      },
-    ];
-  },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: "/api/:path*",
+  //       destination: "http://localhost:3000/api/:path*",
+  //     },
+  //   ];
+  // },
   images: {
     remotePatterns: [
       {
