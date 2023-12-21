@@ -1,5 +1,4 @@
 import "./globals.css";
-import StyledComponentsRegistry from "./lib/registry";
 import ToastProvider from "./provider/toastProvider";
 export default function RootLayout({
   children,
@@ -9,9 +8,7 @@ export default function RootLayout({
   return (
     <html>
       <body>
-        <StyledComponentsRegistry>
-          <ToastProvider>{children} </ToastProvider>
-        </StyledComponentsRegistry>
+        <ToastProvider>{children} </ToastProvider>
       </body>
     </html>
   );
